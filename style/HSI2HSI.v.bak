@@ -1,0 +1,64 @@
+module HSI2HSI(
+	clk,
+	rst,
+	iH,
+	iS,
+	iI,
+	sw1,
+	sw2,
+	key,
+	oH,
+	oS,
+	oI
+);
+input               clk;
+input               rst;
+input		[8:0]	iH;
+input		[7:0]	iS;
+input		[7:0]	iI;
+input               sw1;
+input               sw2;
+input               key;
+output      [8:0]   oH;
+output      [7:0]   oS;
+output      [7:0]   oI;
+
+reg [8:0] oH_r, oH_w;
+reg [7:0] oS_r, oS_w;
+reg [7:0] oI_r, oI_w;
+
+assign oH = oH_r; 
+assign oS = oS_r;
+assign oI = oI_r;
+
+always @(*) begin
+	oH_w = oH_r;
+	if({sw1,sw2}==2'b10 && key) begin
+		oS_w = (oS_r<255) oS_r + 1 : 255;
+		oI_w = oI_r;
+	end // if({sw1,sw2}==2'b10)
+	else if({sw1,sw2}==2'b01 && key)begin
+		oS_w = oS_r;
+		oI_w = (oI_r<255) oI_r + 1 : 255;
+	end // else if({sw1,sw2}==2'b01 && key)
+	else begin
+		oS_w = oS_r;
+		oI_w = oI_r;
+	end // else
+end
+
+always @(posedge clk or negedge rst) begin
+	if(~rst) begin
+		oH_r <= 0;
+		oS_r <= 0;
+		oI_r <= 0;
+	end 
+	else begin
+		oH_r <= oH_w;
+		oS_r <= oS_w;
+		oI_r <= oI_w;
+	end
+end
+
+
+endmodule // HSI

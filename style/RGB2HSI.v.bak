@@ -1,0 +1,29 @@
+module RGB2HSI(
+	iR,
+	iG,
+	iB,
+	Hue,
+	Saturation,
+	Intensity
+);
+input		[7:0]	iR;
+input		[7:0]	iG;
+input		[7:0]	iB;
+output      [8:0]   Hue;
+output      [7:0]   Saturation;
+output      [7:0]   Intensity;
+
+wire [7:0] max;
+wire [7:0] min;
+wire [9:0] sum;
+
+assign max = (iR>iG && iR>iB) ? iR : (iG>iR && iG>iB) ? iG : iB; 
+assign min = (iR<iG && iR<iB) ? iR : (iG<iR && iG<iB) ? iG : iB;
+assign sum = iR + iG + iB;
+assign Saturation = (sum==0)?0:(255 - ((765*min)/sum));
+assign Intensity = sum/3;
+assign Hue = (iR==iG && iR==iB)?0:(min==iB) ? 120*(iG-iB)/(iR+iG-iB-iB):
+			 (min==iR) ? 120*(iB-iR)/(iB+iG-iR-iR)+120:
+			 					  120*(iR-iG)/(iB+iR-iG-iG)+240;
+
+endmodule // HSI

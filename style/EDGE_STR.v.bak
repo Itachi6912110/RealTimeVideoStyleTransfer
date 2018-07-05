@@ -1,0 +1,22 @@
+module EDGE_STR(
+	iR,
+	iG,
+	iB,
+	edg,
+	oR,
+	oG,
+	oB
+);
+input		[7:0]	iR;
+input		[7:0]	iG;
+input		[7:0]	iB;
+input		[7:0]	edg;
+output      [7:0]   oR;
+output      [7:0]   oG;
+output      [7:0]   oB;
+
+assign oR = (edg==255)?0:iR; 
+assign oG = (edg==255)?0:iG; 
+assign oB = (edg==255)?0:iB; 
+
+endmodule 

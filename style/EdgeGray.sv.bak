@@ -1,0 +1,56 @@
+module EdgeGray(
+	ig00,
+	ig01,
+	ig02,
+	ig10,
+	ig11,
+	ig12,
+	ig20,
+	ig21,
+	ig22,
+	oEdgeGray
+);
+input		[7:0] 	ig00;
+input		[7:0]	ig01; 
+input		[7:0]	ig02; 
+input		[7:0]	ig10; 
+input		[7:0]	ig11;
+input		[7:0]	ig12;
+input		[7:0]	ig20;
+input		[7:0]	ig21; 
+input		[7:0]	ig22; 
+output 		[7:0]	oEdgeGray;
+
+wire 		[9:0]	t1;
+wire		[9:0]	t2;
+wire 		[9:0]	t3;
+wire		[9:0]	t4;
+wire 		[9:0]	Tx;
+wire		[9:0]	Ty;
+wire 		[9:0]	otmp;
+
+assign t1 =  ( ig02 + 2 * (ig12) + ig22 ) ;
+assign t2 =  ( ig00 + 2 * (ig10) + ig20 ) ;
+assign Tx =  (t1 >= t2) ? t1 - t2 : t2 - t1;
+assign t3 =  ( ig20 + 2 * (ig21) + ig22 ) ;
+assign t4 =  ( ig00 + 2 * (ig01) + ig02 ) ;
+assign Ty =  (t3 >= t4) ? t3 - t4 : t4 - t3;
+assign otmp = ( Tx + Ty ) >> 1;
+assign oEdgeGray =  ( otmp > 255 ) ? 255 : otmp[7:0];
+
+
+
+
+
+
+
+endmodule 
+
+
+
+
+
+
+
+
+

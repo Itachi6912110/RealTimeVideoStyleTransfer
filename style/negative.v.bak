@@ -1,0 +1,20 @@
+module Negative(
+	iR,
+	iG,
+	iB,
+	oR,
+	oG,
+	oB
+);
+input		[7:0]	iR;
+input		[7:0]	iG;
+input		[7:0]	iB;
+output      [7:0]   oR;
+output      [7:0]   oG;
+output      [7:0]   oB;
+
+assign oR = (255-iR); 
+assign oG = (255-iG);
+assign oB = (255-iB);
+
+endmodule // HSI
