@@ -1,7 +1,7 @@
 # RealTimeVideoStyleTransfer
-DCLab Final Project Team02   
+**DCLab Final Project Team02**   
 A Real time video style transfer system   
-Implement by Verilog   
+Implement by *Verilog*   
 Execute on FPGA board EP4CE115F29C7   
 Develop by DCLAB 2018 SPRING TEAM02   
    
